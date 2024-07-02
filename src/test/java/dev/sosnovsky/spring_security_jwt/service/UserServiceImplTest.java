@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -42,6 +43,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Корректное создание пользователя")
+    @DirtiesContext
     public void createUserTest() {
         RegisterUserRequest registerUserRequest = new RegisterUserRequest("Пётр", "Петров",
                 "petr@petrov.ru", LocalDate.of(2005, 5, 5), "password1");

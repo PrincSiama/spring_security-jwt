@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -68,6 +69,7 @@ class UserControllerTest {
 
     @Test
     @DisplayName("Назначение роли ADMIN пользователем с ролью ADMIN")
+    @DirtiesContext
     void setAdminRoleWithRoleAdmin() throws Exception {
         when(userDetails.getUsername()).thenReturn("Admin");
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(Role.ADMIN.name());
