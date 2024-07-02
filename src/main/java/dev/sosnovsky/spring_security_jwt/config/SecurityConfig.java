@@ -3,7 +3,6 @@ package dev.sosnovsky.spring_security_jwt.config;
 import dev.sosnovsky.spring_security_jwt.jwt.JwtRequestFilter;
 import dev.sosnovsky.spring_security_jwt.model.Role;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,10 +27,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
     private final UserDetailsService userDetailsService;
-
-    @Autowired
     private final JwtRequestFilter jwtRequestFilter;
 
     @Bean
@@ -41,6 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/{id}").authenticated()
                         .requestMatchers(HttpMethod.GET, "/users").hasAuthority(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/users/{id}").hasAuthority(Role.ADMIN.name())

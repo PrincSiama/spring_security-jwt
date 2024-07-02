@@ -48,9 +48,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setAdminRoleById(int id) {
+    public UserDto setAdminRoleById(int id) {
         User user = findUserById(id);
         user.addRole(Role.ADMIN);
+        return mapper.map(userRepository.save(user), UserDto.class);
     }
 
     private User findUserById(int id) {

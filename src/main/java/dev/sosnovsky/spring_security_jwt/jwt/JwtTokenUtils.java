@@ -2,6 +2,8 @@ package dev.sosnovsky.spring_security_jwt.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,17 +19,21 @@ import java.util.Map;
 
 @Component
 public class JwtTokenUtils {
+
     private final SecretKey accessKey;
     private final SecretKey refreshKey;
     private final int jwtAccessLifeTime;
     private final int jwtRefreshLifeTime;
 
-    public JwtTokenUtils(@Value("${jwt.access.lifetime}") String jwtAccessLifeTime,
+    public JwtTokenUtils(@Value("${jwt.access.secret}") String accessSecret,
+                         @Value("${jwt.refresh.secret}") String refreshSecret,
+                         @Value("${jwt.access.lifetime}") String jwtAccessLifeTime,
                          @Value("${jwt.refresh.lifetime}") String jwtRefreshLifeTime) {
-        this.accessKey = Jwts.SIG.HS256.key().build();
-        this.refreshKey = Jwts.SIG.HS256.key().build();
+        this.accessKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(accessSecret));
+        this.refreshKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(refreshSecret));
         this.jwtAccessLifeTime = Integer.parseInt(jwtAccessLifeTime);
         this.jwtRefreshLifeTime = Integer.parseInt(jwtRefreshLifeTime);
+
     }
 
     public String generateAccessToken(UserDetails userDetails) {

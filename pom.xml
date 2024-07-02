@@ -20,6 +20,7 @@
 		<model.mapper.version>3.1.1</model.mapper.version>
 		<json-patch.version>1.13</json-patch.version>
 		<jsonwebtoken.version>0.12.5</jsonwebtoken.version>
+		<swagger.openapi.version>2.5.0</swagger.openapi.version>
 	</properties>
 
 	<dependencies>
@@ -70,6 +71,11 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${model.mapper.version}</version>
@@ -90,6 +96,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${swagger.openapi.version}</version>
 		</dependency>
 	</dependencies>
 

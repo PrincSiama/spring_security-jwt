@@ -14,5 +14,5 @@ public interface UserService {
 
     List<UserDto> getAllUsers(Pageable pageable);
 
-    void setAdminRoleById(int id);
+    UserDto setAdminRoleById(int id);
 }
